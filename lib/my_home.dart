@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  StreamController<Position> _locStream = StreamController();
+  StreamController<Position> _speedAndHeadingStream = StreamController();
   late StreamSubscription<Position> locationSubscription;
   late Color textColor = Colors.blue;
 
@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    _locStream.close();
+    _speedAndHeadingStream.close();
     locationSubscription.cancel();
     super.dispose();
   }
@@ -30,17 +30,36 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     startLocation() {
-      final positionStream = Geolocator.getPositionStream().handleError((error) {});
-      locationSubscription = positionStream.listen((Position position) {
-        _locStream.sink.add(position);
+      const LocationSettings locationSettings = LocationSettings(
+        accuracy: LocationAccuracy.best,
+      );
+      final positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen((position) {
+        double speedInMps = position.speed;
+        double headingValue = position.heading;
+        // double latitudeValue = position.latitude;
+        // double longitudeValue = position.longitude;
 
-        if (textColor == Colors.blue) {
-          textColor = Colors.red;
-        } else {
-          textColor = Colors.blue;
-        }
+        // _speedAndHeadingStream.sink.add(speedInMps);
+        // _speedAndHeadingStream.sink.add(headingValue);
+        _speedAndHeadingStream.sink.add(position);
+        // _speedAndHeadingStream.sink.add(longitudeValue);
+        // print('This is the speed in mps: $speedInMps');
+        // print('This is the latitude: $latitudeValue');
+        // print('This is the longitude: $longitudeValue');
       });
-    }
+
+      // final positionStream = Geolocator.getPositionStream().handleError((error) {
+      // });
+      // locationSubscription = positionStream.listen((Position position) {
+      //   _speedAndHeadingStream.sink.add(position);
+      //
+      //   if (textColor == Colors.blue) {
+      //     textColor = Colors.red;
+      //   } else {
+      //     textColor = Colors.blue;
+      //   }
+      // });
+    } //startLocation
 
     pauseLocation() async {
       locationSubscription.pause();
@@ -51,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
           child: StreamBuilder(
-            stream: _locStream.stream,
+            stream: _speedAndHeadingStream.stream,
             builder: (context, snapshot) => Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
