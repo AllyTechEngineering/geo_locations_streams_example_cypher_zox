@@ -10,14 +10,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  StreamController<Position> _speedAndHeadingStream = StreamController();
-  late StreamSubscription<Position> locationSubscription;
+  StreamController<double> _speedAndHeadingStream = StreamController();
+  late StreamSubscription<double> locationSubscription;
   late Color textColor = Colors.blue;
 
   @override
   void initState() {
     super.initState();
     GeolocatorPlatform.instance.requestPermission();
+    startLocation();
   }
 
   @override
@@ -27,40 +28,40 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  startLocation() {
+    const LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.best,
+    );
+    Geolocator.getPositionStream(locationSettings: locationSettings).listen((position) {
+      double speedInMps = position.speed;
+      double headingValue = position.heading;
+      // double latitudeValue = position.latitude;
+      // double longitudeValue = position.longitude;
+
+      // _speedAndHeadingStream.sink.add(speedInMps);
+      // _speedAndHeadingStream.sink.add(headingValue);
+      _speedAndHeadingStream.sink.add(position.speed);
+      // _speedAndHeadingStream.sink.add(longitudeValue);
+      // print('This is the speed in mps: $speedInMps');
+      // print('This is the latitude: $latitudeValue');
+      // print('This is the longitude: $longitudeValue');
+    });
+
+    // final positionStream = Geolocator.getPositionStream().handleError((error) {
+    // });
+    // locationSubscription = positionStream.listen((Position position) {
+    //   _speedAndHeadingStream.sink.add(position);
+    //
+    //   if (textColor == Colors.blue) {
+    //     textColor = Colors.red;
+    //   } else {
+    //     textColor = Colors.blue;
+    //   }
+    // });
+  } //startLocation
+
   @override
   Widget build(BuildContext context) {
-    startLocation() {
-      const LocationSettings locationSettings = LocationSettings(
-        accuracy: LocationAccuracy.best,
-      );
-      final positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen((position) {
-        double speedInMps = position.speed;
-        double headingValue = position.heading;
-        // double latitudeValue = position.latitude;
-        // double longitudeValue = position.longitude;
-
-        // _speedAndHeadingStream.sink.add(speedInMps);
-        // _speedAndHeadingStream.sink.add(headingValue);
-        _speedAndHeadingStream.sink.add(position);
-        // _speedAndHeadingStream.sink.add(longitudeValue);
-        // print('This is the speed in mps: $speedInMps');
-        // print('This is the latitude: $latitudeValue');
-        // print('This is the longitude: $longitudeValue');
-      });
-
-      // final positionStream = Geolocator.getPositionStream().handleError((error) {
-      // });
-      // locationSubscription = positionStream.listen((Position position) {
-      //   _speedAndHeadingStream.sink.add(position);
-      //
-      //   if (textColor == Colors.blue) {
-      //     textColor = Colors.red;
-      //   } else {
-      //     textColor = Colors.blue;
-      //   }
-      // });
-    } //startLocation
-
     pauseLocation() async {
       locationSubscription.pause();
     }
@@ -83,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const Spacer(),
                 const Text(
-                  "Hello I'm at",
+                  'Current Location: ',
                   style: TextStyle(
                     fontSize: 21,
                   ),
@@ -92,11 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Center(
                   child: Text(
                     snapshot.data == null
-                        ? "don't know yet"
+                        ? 'No data:'
                         : snapshot.connectionState == ConnectionState.waiting
-                            ? "waiting"
+                            ? 'Waiting on data'
                             : snapshot.data.toString(),
-                    style: TextStyle(color: textColor),
+                    style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),
                 ElevatedButton(
