@@ -66,3 +66,9 @@ const String copyRightText = 'Hueston Sailing Association: All Rights Reserved 2
 const double textContainerHeight = 140.0;
 const double textContainerWidth = 500.0;
 const double textContainerFontHeight = 18.0;
+
+// Color Palette for App
+const int kDarkestGreen = 0xFF002B5B;
+const int kDarkGreen = 0xFF1A5F7A;
+const int kMediumGreen = 0xFF159895;
+const int kLightGreen = 0x0FF57C5B6;

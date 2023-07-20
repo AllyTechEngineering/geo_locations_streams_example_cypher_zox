@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:geo_locations_streams_example_cypher_zox/screens/screen_one.dart';
 import 'package:geo_locations_streams_example_cypher_zox/screens/screen_three.dart';
 import 'package:geo_locations_streams_example_cypher_zox/screens/screen_two.dart';
-import '../my_home.dart';
 
 void main() {
   runApp(const MyApp());

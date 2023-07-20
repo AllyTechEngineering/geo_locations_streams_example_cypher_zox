@@ -137,7 +137,7 @@ class _ScreenOneState extends State<ScreenOne> {
         title: const FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            'Sailboat Racing Computer',
+            'WindRacePro',
             style: TextStyle(
               fontFamily: kFontTypeForApp,
               color: Color(kFontColor),
@@ -168,8 +168,8 @@ class _ScreenOneState extends State<ScreenOne> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           'This is the latitude:',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
@@ -180,7 +180,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Container(
@@ -192,8 +192,8 @@ class _ScreenOneState extends State<ScreenOne> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           'This is the longitude:',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
@@ -204,7 +204,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Container(
@@ -216,8 +216,8 @@ class _ScreenOneState extends State<ScreenOne> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           'This is the heading:',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
@@ -228,7 +228,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Container(
@@ -240,8 +240,8 @@ class _ScreenOneState extends State<ScreenOne> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                           'This is the speed:',
                           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
